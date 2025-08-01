@@ -17,8 +17,11 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
 
+import parkingSpaceRouter from './routes/parkingSpace.routes.js';
+
+
+app.use('/api/parking-space', parkingSpaceRouter);
 
 export {app};
 

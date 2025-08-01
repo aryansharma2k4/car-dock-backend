@@ -1,22 +1,23 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const slotSchema = new Schema({
-    number: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    slotType:{
-        type: String,
-        required: true,
-        enum: ["regular","compact","ev","handicap-accessible"]
-    },
-    status: {
-        type: String,
-        required: true,
-        enum: ["available","occupied","maintenance"]
-    }
-})
+  name: {
+    type: String,
+    required: true,
+  },
+  slotType: {
+    type: String,
+    required: true,
+    enum: ["regular", "compact", "ev", "handicap-accessible"],
+  },
+  status: {
+    type: String,
+    required: true,
+    enum: ["available", "occupied", "maintenance"],
+    default: "available",
+  },
+});
 
-export const Slot = mongoose.model("Slot",slotSchema)
 
+export const Slot = mongoose.model("Slot", slotSchema);
