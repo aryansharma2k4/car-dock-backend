@@ -17,6 +17,10 @@ const slotSchema = new Schema({
     enum: ["available", "occupied", "maintenance"],
     default: "available",
   },
+    vehicle: {
+        type: Schema.Types.ObjectId,
+        ref: "Vehicle",
+    },
 });
 
 

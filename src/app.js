@@ -19,9 +19,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 import parkingSpaceRouter from './routes/parkingSpace.routes.js';
+import vehicleRouter from './routes/vehicle.routes.js';
+import sessionRouter from './routes/session.routes.js'
+import slotRouter from "./routes/slot.routes.js"
 
 
 app.use('/api/parking-space', parkingSpaceRouter);
-
+app.use('/api/vehicle', vehicleRouter);
+app.use('/api/sessions', sessionRouter)
+app.use('/api/slot', slotRouter);
 export {app};
 

@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-
+import mongoose from "mongoose";
 const sessionSchema = new Schema({
     parkVehicle: {
         type: Schema.Types.ObjectId,
@@ -18,7 +18,7 @@ const sessionSchema = new Schema({
     },
     status: {
         type: String,
-        requried: true,
+        required: true,
         enum: ["Active", "Completed"]
     },
     billingType: {

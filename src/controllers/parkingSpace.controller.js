@@ -3,6 +3,10 @@ import { Slot } from "../schema/slot.model.js";
 
 const initializeParking = async (req, res) => {
   try {
+    // Optional: Clear existing slots and parking space if any
+    await Slot.deleteMany({});
+    await ParkingSpace.deleteMany({});
+
     const regularSlotNames = ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10"];
     const compactSlotNames = ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10"];
     const evSlotNames = ["E01", "E02", "E03", "E04", "E05"];
@@ -12,8 +16,6 @@ const initializeParking = async (req, res) => {
     const compactSlots = [];
     const evSlots = [];
     const handicapSlots = [];
-
-    let counter = 1;
 
     const createSlot = async (name, type) => {
       const slot = new Slot({
@@ -36,7 +38,7 @@ const initializeParking = async (req, res) => {
     }
 
     for (const name of evSlotNames) {
-      const id = await createSlot(name, "ev");
+      const id = await createSlot(name, "ev"); 
       evSlots.push(id);
     }
 
@@ -54,7 +56,7 @@ const initializeParking = async (req, res) => {
       compactEmptySlot: compactSlots.length,
       evEmptySlot: evSlots.length,
       handicapEmptySlot: handicapSlots.length,
-      lastOccupiedSlotName: null,
+      totalMoneyCollected: 0,
     });
 
     await parkingSpace.save();
@@ -65,7 +67,7 @@ const initializeParking = async (req, res) => {
       parkingSpace,
     });
   } catch (err) {
-    console.error(err);
+    console.error("Error initializing parking:", err);
     res.status(500).json({
       success: false,
       error: "Server Error",
@@ -73,4 +75,23 @@ const initializeParking = async (req, res) => {
   }
 };
 
-export { initializeParking };
+const getParkingSpace = async (req, res) => {
+  try {
+    const parkingSpace = await ParkingSpace.findOne();
+    if (!parkingSpace) {
+      return res.status(404).json({ message: "Parking space not found." });
+    }
+    return res.status(200).json({
+      success: true,
+      parkingSpace,
+    });
+  } catch (error) {
+    console.error("Error Getting Parking Space:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+    });
+  }
+};
+
+export { initializeParking, getParkingSpace };

@@ -1,46 +1,59 @@
 import mongoose, { Schema } from "mongoose";
 
 const parkingSpaceSchema = new Schema({
-    regularSlotAvailable: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Slot",
-        }
-    ],
-    compactSlotAvailable: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Slot",
-        }
-    ],
-    evSlotAvailable: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Slot",
-        }
-    ],
-    handicapSlotAvailable: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Slot",
-        }
-    ],
-    regularEmptySlot: {
-        type: Number,
+  regularSlotAvailable: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Slot",
+      required: true,
     },
-    compactEmptySlot: {
-        type: Number,
+  ],
+  compactSlotAvailable: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Slot",
+      required: true,
     },
-    evEmptySlot: {
-        type: Number,
+  ],
+  evSlotAvailable: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Slot",
+      required: true,
     },
-    handicapEmptySlot: {
-        type: Number,
+  ],
+  handicapSlotAvailable: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Slot",
+      required: true,
     },
-    lastOccupiedSlotName: {
-        type: String,
-    }
-})
+  ],
+  regularEmptySlot: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  compactEmptySlot: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  evEmptySlot: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  handicapEmptySlot: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  totalMoneyCollected: {
+    type: Number, 
+    required: true,
+    default: 0,
+  }
+});
 
-export const ParkingSpace = mongoose.model("ParkingSpace", parkingSpaceSchema)
-
+export const ParkingSpace = mongoose.model("ParkingSpace", parkingSpaceSchema);
