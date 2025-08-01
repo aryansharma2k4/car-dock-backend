@@ -95,7 +95,6 @@ const registerVehicle = async (req, res) => {
       billingType,
       amount: 0,
     });
-    upstashCronJob(newSession._id);
 
     // Update parking space slot list
     await ParkingSpace.findByIdAndUpdate(parkingSpace._id, {
